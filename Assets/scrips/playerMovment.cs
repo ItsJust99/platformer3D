@@ -9,6 +9,11 @@ public class playerMovment : MonoBehaviour
 
     public float groundDrag;
 
+    public float jumpForce;
+    public float jumpCooldown;
+    public float airMultiplier;
+    bool reayToJump;
+
     [Header("Ground Check")]
     public float playerHeight;
     public LayerMask whatIsGround;
@@ -74,5 +79,11 @@ public class playerMovment : MonoBehaviour
             Vector3 limitedVel = flatVel.normalized * moveSpeed;
             rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
         }
+    }
+
+    private void Jump()
+    {
+        //reset y velocity
+
     }
 }
