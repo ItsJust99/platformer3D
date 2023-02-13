@@ -4,5 +4,9 @@ using UnityEngine;
 
 public abstract class Ability : ScriptableObject
 {
-    public abstract void Use();
+    public new string name;
+    public float cooldownTime;
+    public float activeTime;
+
+    public virtual void Activate() {}
 }
