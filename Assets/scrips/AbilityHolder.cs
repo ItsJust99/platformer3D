@@ -16,7 +16,7 @@ public class AbilityHolder : MonoBehaviour
     }
     AbilityState state = AbilityState.ready;
 
-    public KeyCode abilityKey = KeyCode.Mouse0;
+    public KeyCode key;
 
     // Update is called once per frame
     void Update()
@@ -24,10 +24,10 @@ public class AbilityHolder : MonoBehaviour
         switch (state)
         {
             case AbilityState.ready:
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                if (Input.GetKeyDown(key))
                 {
-                    ability.Activate();
-                    state = AbilityState.active;
+                    ability.Activate(gameObject);
+                    state = AbilityState.active; 
                     activeTime = ability.activeTime;
                 }
                 break;
