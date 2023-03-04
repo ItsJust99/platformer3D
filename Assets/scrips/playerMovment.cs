@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Transform _eyes;
+    [SerializeField] private float _sensitivity;
+    private float _camAngle = 0.0f;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+    private void Update()
+    {
+        float yMouse = Input.GetAxis("Mouse Y") * _sensitivity * Time.deltaTime;
+        _camAngle -= yMouse;
+        _eyes.localRotation = Quaternion.Euler(_camAngle, 0, 0);
     }
 }
