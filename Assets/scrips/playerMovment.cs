@@ -10,8 +10,13 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private float _camLimitMax;
     private float _camAngle = 0.0f;
 
+    [SerializeField] private float _speed;
+    private Rigidbody _rb;
+
     private void Start()
     {
+        _rb = GetComponent<Rigidbody>();
+
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -20,6 +25,16 @@ public class PlayerMovment : MonoBehaviour
         RotateEyes();
         RotateBody();
     }
+    private void FixedUpdate()
+    {
+        float xDir = Input.GetAxis("Horizontal");
+        float zDir = Input.GetAxis("Vertical");
+
+        Vector3 dir = transform.right * xDir + transform.forward * zDir;
+       
+        _rb.velocity = new Vector3(0, _rb.velocity.y, 0) + dir.normalized * _speed;
+    }
+
     private void RotateEyes()
     {
         float yMouse = Input.GetAxis("Mouse Y") * _sensitivity * Time.deltaTime;
