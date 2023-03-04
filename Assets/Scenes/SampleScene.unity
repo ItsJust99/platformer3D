@@ -254,6 +254,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _eyes: {fileID: 2087492688}
   _sensitivity: 500
+  _camLimitMin: -50
+  _camLimitMax: 40
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
