@@ -256,6 +256,7 @@ MonoBehaviour:
   _sensitivity: 500
   _camLimitMin: -50
   _camLimitMax: 40
+  _speed: 7
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
