@@ -11,10 +11,27 @@ public class PlayerMovment : MonoBehaviour
     private float _camAngle = 0.0f;
 
     [SerializeField] private float _speed;
+    [SerializeField] private float _walkSpeed;
+    [SerializeField] private float _sprintSpeed;
+    [SerializeField] private KeyCode _sprintKey;
     private Rigidbody _rb;
 
     [SerializeField] private float _jumpForce;
     [SerializeField] private KeyCode _jumpKey;
+
+    [SerializeField] private float _crouchSpeed;
+    [SerializeField] private float _crouchYScale;
+    private float _startYScale;
+    [SerializeField] private KeyCode _crouchKey;
+
+    public MovementState state;
+    public enum MovementState
+    {
+        walking,
+        sprinting,
+        crouching,
+        air
+    }
 
     private void Start()
     {
@@ -22,17 +39,33 @@ public class PlayerMovment : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        _startYScale = transform.localScale.y;
     }
     private void Update()
     {
         RotateEyes();
         RotateBody();
+        StateHandler();
+
         Debug.Log(IsGrounded());
 
         if (Input.GetKeyDown(_jumpKey))
         {
             TryJump();
         }
+        //start crouch
+        if (Input.GetKeyDown(_crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, _crouchYScale, transform.localScale.z);
+            _rb.AddForce(Vector3.down * 5f, ForceMode.Impulse);
+        }
+        //stop crouch
+        if (Input.GetKeyUp(_crouchKey))
+        {
+            transform.localScale = new Vector3(transform.localScale.x, _startYScale, transform.localScale.z);
+        }
+
     }
     private void FixedUpdate()
     {
@@ -76,5 +109,30 @@ public class PlayerMovment : MonoBehaviour
     {
         RaycastHit hit;
         return Physics.Raycast(transform.position, -transform.up, out hit, 1.1f);
+    }
+    private void StateHandler()
+    {
+        //mode - crouching
+        if (Input.GetKey(_crouchKey))
+        {
+            state = MovementState.crouching;
+            _speed = _crouchSpeed;
+        }
+        // mode - sprinting
+        if (IsGrounded() && Input.GetKey(_sprintKey))
+        {
+            state = MovementState.sprinting;
+            _speed = _sprintSpeed;
+        }
+        //mode - walking
+        else if (IsGrounded())
+        {
+            state = MovementState.walking;
+            _speed = _walkSpeed;
+        }
+        else
+        {
+            state = MovementState.air;
+        }
     }
 }   

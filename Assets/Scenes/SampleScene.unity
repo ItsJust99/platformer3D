@@ -258,8 +258,15 @@ MonoBehaviour:
   _camLimitMin: -50
   _camLimitMax: 40
   _speed: 7
-  _jumpForce: 10
+  _walkSpeed: 7
+  _sprintSpeed: 12
+  _sprintKey: 113
+  _jumpForce: 5
   _jumpKey: 32
+  _crouchSpeed: 3.5
+  _crouchYScale: 0.5
+  _crouchKey: 304
+  state: 0
 --- !u!136 &24919653
 CapsuleCollider:
   m_ObjectHideFlags: 0
