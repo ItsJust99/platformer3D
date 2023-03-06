@@ -13,6 +13,9 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private float _speed;
     private Rigidbody _rb;
 
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private KeyCode _jumpKey;
+
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -24,15 +27,16 @@ public class PlayerMovment : MonoBehaviour
     {
         RotateEyes();
         RotateBody();
+        Debug.Log(IsGrounded());
+
+        if (Input.GetKeyDown(_jumpKey))
+        {
+            TryJump();
+        }
     }
     private void FixedUpdate()
     {
-        float xDir = Input.GetAxis("Horizontal");
-        float zDir = Input.GetAxis("Vertical");
-
-        Vector3 dir = transform.right * xDir + transform.forward * zDir;
-       
-        _rb.velocity = new Vector3(0, _rb.velocity.y, 0) + dir.normalized * _speed;
+        Move();
     }
 
     private void RotateEyes()
@@ -46,5 +50,30 @@ public class PlayerMovment : MonoBehaviour
     {
         float xMouse = Input.GetAxis("Mouse X") * _sensitivity * Time.deltaTime;
         transform.Rotate(Vector3.up * xMouse);
+    }
+    private void Move()
+    {
+        float xDir = Input.GetAxis("Horizontal");
+        float zDir = Input.GetAxis("Vertical");
+
+        Vector3 dir = transform.right * xDir + transform.forward * zDir;
+
+        _rb.velocity = new Vector3(0, _rb.velocity.y, 0) + dir.normalized * _speed;
+    }
+    private void TryJump()
+    {
+        if (IsGrounded())
+        {
+            Jump(_jumpForce);
+        }
+    }
+    private void Jump(float jumpForce)
+    {
+        _rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+    private bool IsGrounded()
+    {
+        RaycastHit hit;
+        return Physics.Raycast(transform.position, -transform.up, out hit, 1.1f);
     }
 }   
