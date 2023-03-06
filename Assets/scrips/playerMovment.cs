@@ -4,25 +4,29 @@ using UnityEngine;
 
 public class PlayerMovment : MonoBehaviour
 {
+    //cam movment
     [SerializeField] private Transform _eyes;
     [SerializeField] private float _sensitivity;
     [SerializeField] private float _camLimitMin;
     [SerializeField] private float _camLimitMax;
     private float _camAngle = 0.0f;
-
+    //movement
     [SerializeField] private float _speed;
     [SerializeField] private float _walkSpeed;
     [SerializeField] private float _sprintSpeed;
     [SerializeField] private KeyCode _sprintKey;
     private Rigidbody _rb;
-
+    //jump
     [SerializeField] private float _jumpForce;
     [SerializeField] private KeyCode _jumpKey;
-
+    //courch
     [SerializeField] private float _crouchSpeed;
     [SerializeField] private float _crouchYScale;
     private float _startYScale;
     [SerializeField] private KeyCode _crouchKey;
+    // interct
+    [SerializeField] private KeyCode _interactKey;
+    [SerializeField] private float _interactRange;
 
     public MovementState state;
     public enum MovementState
@@ -53,6 +57,10 @@ public class PlayerMovment : MonoBehaviour
         if (Input.GetKeyDown(_jumpKey))
         {
             TryJump();
+        }
+        if (Input.GetKeyDown(_interactKey))
+        {
+            TryInteract();
         }
         //start crouch
         if (Input.GetKeyDown(_crouchKey))
@@ -109,6 +117,18 @@ public class PlayerMovment : MonoBehaviour
     {
         RaycastHit hit;
         return Physics.Raycast(transform.position, -transform.up, out hit, 1.1f);
+    }
+    private void TryInteract()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(_eyes.position, _eyes.forward, out hit, _interactRange))
+        {
+            IInteractable interactable = hit.collider.gameObject.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                interactable.Interact();
+            }
+        }
     }
     private void StateHandler()
     {
