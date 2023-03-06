@@ -119,7 +119,7 @@ public class PlayerMovment : MonoBehaviour
             _speed = _crouchSpeed;
         }
         // mode - sprinting
-        if (IsGrounded() && Input.GetKey(_sprintKey))
+        else if (IsGrounded() && Input.GetKey(_sprintKey))
         {
             state = MovementState.sprinting;
             _speed = _sprintSpeed;
