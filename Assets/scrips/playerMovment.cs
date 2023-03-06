@@ -69,6 +69,7 @@ public class PlayerMovment : MonoBehaviour
     }
     private void Jump(float jumpForce)
     {
+        _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
         _rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
     private bool IsGrounded()
