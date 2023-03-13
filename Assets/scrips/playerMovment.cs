@@ -52,7 +52,7 @@ public class PlayerMovment : MonoBehaviour
         RotateBody();
         StateHandler();
 
-        Debug.Log(IsGrounded());
+        //Debug.Log(IsGrounded());
 
         if (Input.GetKeyDown(_jumpKey))
         {
