@@ -283,7 +283,7 @@ MonoBehaviour:
   _interactKey: 120
   _interactRange: 0
   _abilityKey: 323
-  _ability: {fileID: 0}
+  _ability: {fileID: 11400000, guid: 231d202f71e7300418301da9732fb05a, type: 2}
   state: 0
 --- !u!1 &705507993
 GameObject:
