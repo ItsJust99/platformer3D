@@ -31,6 +31,8 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private KeyCode _abilityKey;
     [SerializeField] private Ability _ability;
 
+
+
     public MovementState state;
     public enum MovementState
     {
