@@ -27,6 +27,9 @@ public class PlayerMovment : MonoBehaviour
     // interct
     [SerializeField] private KeyCode _interactKey;
     [SerializeField] private float _interactRange;
+    //ability
+    [SerializeField] private KeyCode _abilityKey;
+    [SerializeField] private Ability _ability;
 
     public MovementState state;
     public enum MovementState
@@ -61,6 +64,10 @@ public class PlayerMovment : MonoBehaviour
         if (Input.GetKeyDown(_interactKey))
         {
             TryInteract();
+        }
+        if (Input.GetKeyDown(_abilityKey))
+        {
+            _ability.Use(this);
         }
         //start crouch
         if (Input.GetKeyDown(_crouchKey))
