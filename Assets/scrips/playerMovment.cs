@@ -24,13 +24,13 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private float _crouchYScale;
     private float _startYScale;
     [SerializeField] private KeyCode _crouchKey;
-    // interct
+    //interct
     [SerializeField] private KeyCode _interactKey;
     [SerializeField] private float _interactRange;
     //ability
     [SerializeField] private KeyCode _abilityKey;
     [SerializeField] private Ability _ability;
-
+    
 
 
     public MovementState state;
