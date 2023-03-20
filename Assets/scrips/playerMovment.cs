@@ -31,8 +31,6 @@ public class PlayerMovment : MonoBehaviour
     [SerializeField] private KeyCode _abilityKey;
     [SerializeField] private Ability _ability;
     
-
-
     public MovementState state;
     public enum MovementState
     {
@@ -109,6 +107,7 @@ public class PlayerMovment : MonoBehaviour
         Vector3 dir = transform.right * xDir + transform.forward * zDir;
 
         _rb.velocity = new Vector3(0, _rb.velocity.y, 0) + dir.normalized * _speed;
+
     }
     private void TryJump()
     {
