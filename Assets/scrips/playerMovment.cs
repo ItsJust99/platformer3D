@@ -30,6 +30,8 @@ public class PlayerMovment : MonoBehaviour
     //ability
     [SerializeField] private KeyCode _abilityKey;
     [SerializeField] private Ability _ability;
+    //slope handling
+
     
     public MovementState state;
     public enum MovementState
